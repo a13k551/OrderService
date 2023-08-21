@@ -1,15 +1,15 @@
 package order
 
 type Order struct {
-	id  string
-	num string
-	sum float32
+	Id  string  `json:"id"`
+	Num string  `json:"num"`
+	Sum float32 `json:"sum"`
 }
 
-func (*Order) New(id, num string, sum float32) *Order {
+func NewOrder(id, num string, sum float32) *Order {
 	return &Order{
-		id:  id,
-		num: num,
-		sum: sum,
+		Id:  id,
+		Num: num,
+		Sum: sum,
 	}
 }
