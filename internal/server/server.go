@@ -7,43 +7,18 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/a13k551/OrderService/internal/order"
+	"github.com/gorilla/mux"
 )
 
 func OrderHandler(w http.ResponseWriter, req *http.Request) {
-	if req.URL.Path == "/order/" {
 
-		if req.Method == http.MethodPost {
-			createOrder(w, req)
-		}
-	} else {
-
-		path := strings.Trim(req.URL.Path, "/")
-		pathParts := strings.Split(path, "/")
-		if len(pathParts) < 2 {
-			http.Error(w, "expect /task/<id> in task handler", http.StatusBadRequest)
-			return
-		}
-		id, err := strconv.Atoi(pathParts[1])
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
-
-		if req.Method == http.MethodDelete {
-			deleteOrderById(w, req, int(id))
-		} else if req.Method == http.MethodGet {
-			getOrderById(w, req, int(id))
-		} else {
-			http.Error(w, fmt.Sprintf("expect method GET or DELETE at /task/<id>, got %v", req.Method), http.StatusMethodNotAllowed)
-			return
-		}
-	}
 }
 
-func getOrderById(w http.ResponseWriter, req *http.Request, id int) {
+func GetOrderById(w http.ResponseWriter, req *http.Request) {
+
+	id, _ := strconv.Atoi(mux.Vars(req)["id"])
 
 	js, err := order.GetOrderById(id)
 
@@ -61,7 +36,7 @@ func getOrderById(w http.ResponseWriter, req *http.Request, id int) {
 	}
 }
 
-func createOrder(w http.ResponseWriter, req *http.Request) {
+func CreateOrder(w http.ResponseWriter, req *http.Request) {
 
 	defer req.Body.Close()
 
@@ -79,6 +54,10 @@ func createOrder(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func deleteOrderById(w http.ResponseWriter, req *http.Request, id int) {
+func DeleteOrderById(w http.ResponseWriter, req *http.Request) {
+
+}
+
+func UpdateOrderById(w http.ResponseWriter, req *http.Request) {
 
 }
