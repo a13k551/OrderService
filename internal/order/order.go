@@ -5,12 +5,12 @@ import (
 )
 
 type Order struct {
-	Id  string  `json:"id"`
+	Id  int     `json:"id"`
 	Num string  `json:"num"`
 	Sum float32 `json:"sum"`
 }
 
-func NewOrder(id, num string, sum float32) *Order {
+func NewOrder(id int, num string, sum float32) *Order {
 	return &Order{
 		Id:  id,
 		Num: num,
@@ -18,9 +18,9 @@ func NewOrder(id, num string, sum float32) *Order {
 	}
 }
 
-func GetOrder() ([]byte, error) {
+func GetOrderById(id int) ([]byte, error) {
 
-	order1 := NewOrder("1", "1", 100.25)
+	order1 := NewOrder(id, "1", 100.25)
 
 	js, err := json.Marshal(order1)
 
