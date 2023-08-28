@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/a13k551/OrderService/internal/server"
+	"github.com/a13k551/OrderService/internal/order"
 	"github.com/gorilla/mux"
 )
 
@@ -13,10 +13,8 @@ func main() {
 
 	router := mux.NewRouter()
 	router.StrictSlash(true)
-	router.HandleFunc("/order/", server.CreateOrder).Methods("POST")
-	router.HandleFunc("/order/{id:[0-9]+}/", server.GetOrderById).Methods("GET")
-	router.HandleFunc("/order/{id:[0-9]+}/", server.DeleteOrderById).Methods("DELETE")
-	router.HandleFunc("/order/{id:[0-9]+}/", server.UpdateOrderById).Methods("UPDATE")
+
+	order.AddHandlers(router)
 
 	listener, err := net.Listen("tcp", "localhost:5000")
 
