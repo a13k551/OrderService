@@ -1,0 +1,10 @@
+is_debug: true
+app:
+  bind_ip: localhost
+  port: 5000
+postgree:
+  host: localhost
+  port: 10000
+  database: order-service
+  username: 
+  pass:
